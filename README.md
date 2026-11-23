@@ -4,12 +4,12 @@ A real-time 2D particle simulation written in Rust, built as a project to learn 
 
 > 🚧 Work in progress
 
-<!-- Add a GIF here once particles are moving: ![demo](assets/demo.gif) -->
+![demo](assets/demo.gif)
 
 ## Features
 
-- [ ] Window, render loop and FPS counter
-- [ ] Particles with gravity and edge bounces
+- [x] Window, render loop and FPS counter
+- [x] Particles with gravity and edge bounces
 - [ ] Particle-particle collisions (spatial grid)
 - [ ] Mouse attract / repel
 - [ ] Inter-particle forces / boids
