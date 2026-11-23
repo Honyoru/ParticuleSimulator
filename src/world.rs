@@ -16,7 +16,11 @@ impl World {
     }
 
     /// Updates every particle (later: collisions too).
-    pub fn update(&mut self, dt: f32) {}
+    pub fn update(&mut self, dt: f32) {
+        for particle in &mut self.particles {
+            particle.update(dt);
+        }
+    }
 
     /// Draws every particle.
     pub fn draw(&self) {

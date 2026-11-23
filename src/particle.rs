@@ -21,7 +21,10 @@ impl Particle {
         );
         Self {
             pos: Vec2::new(x, y),
-            vel: Vec2::ZERO,
+            vel: Vec2::new(
+                rand::gen_range(-200.0, 200.0),
+                rand::gen_range(-200.0, 200.0),
+            ),
             radius,
             color,
         }
@@ -29,7 +32,8 @@ impl Particle {
 
     /// Moves the particle: gravity, movement, bouncing off the edges.
     pub fn update(&mut self, dt: f32) {
-        todo!()
+        self.pos.x += self.vel.x * dt;
+        self.pos.y += self.vel.y * dt;
     }
 
     /// Draws the particle as a circle.
