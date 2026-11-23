@@ -10,7 +10,16 @@ pub struct Particle {
 impl Particle {
     /// Creates a particle with a random position, velocity, radius and color.
     pub fn new() -> Self {
-        todo!()
+        let radius = rand::gen_range(2.0, 30.0);
+        let x = rand::gen_range(radius, screen_width() - radius);
+        let y = rand::gen_range(radius, screen_height() - radius);
+        let color = Color::new(rand::gen_range(0.0, 1.0), rand::gen_range(0.0, 1.0), rand::gen_range(0.0, 1.0), 1.0);
+        Self{
+            pos: Vec2::new(x, y),
+            vel: Vec2::ZERO,
+            radius,
+            color,
+        }
     }
 
     /// Moves the particle: gravity, movement, bouncing off the edges.
@@ -20,6 +29,6 @@ impl Particle {
 
     /// Draws the particle as a circle.
     pub fn draw(&self) {
-        todo!()
+        draw_circle(self.pos.x, self.pos.y, self.radius, self.color);
     }
 }

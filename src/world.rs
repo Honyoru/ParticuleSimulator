@@ -18,6 +18,6 @@ impl World {
 
     /// Draws every particle.
     pub fn draw(&self) {
-        draw_circle(screen_width() / 2.0, screen_height() / 2.0, 50.0, RED);
+        
     }
 }
