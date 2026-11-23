@@ -13,7 +13,7 @@ pub struct Particle {
 impl Particle {
     /// Creates a particle with a random position, velocity, radius and color.
     pub fn new() -> Self {
-        let radius = rand::gen_range(2.0, 10.0);
+        let radius = rand::gen_range(2.0, 20.0);
         let x = rand::gen_range(radius, screen_width() - radius);
         let y = rand::gen_range(radius, screen_height() - radius);
         let color = Color::new(

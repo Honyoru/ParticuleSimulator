@@ -15,7 +15,8 @@ impl World {
         Self { particles }
     }
 
-    /// Updates every particle (later: collisions too).
+    /// Moves every particle, then resolves particle-particle collisions:
+    /// overlapping pairs are pushed apart and swap velocities.
     pub fn update(&mut self, dt: f32) {
         for particle in &mut self.particles {
             particle.update(dt);
@@ -23,13 +24,19 @@ impl World {
         let n = self.particles.len();
         for i in 0..n {
             for j in i + 1..n {
-                let pos_a = self.particles[i].pos;
-                let pos_b = self.particles[j].pos;
-                let r_a = self.particles[i].radius;
-                let r_b = self.particles[j].radius;
-                if pos_a.distance(pos_b) < r_a + r_b {
-                    self.particles[i].color = WHITE;
-                    self.particles[j].color = WHITE;
+                let (left, right) = self.particles.split_at_mut(j);
+                let pos_a = left[i].pos;
+                let pos_b = right[0].pos;
+                let r_a = left[i].radius;
+                let r_b = right[0].radius;
+                let distance = pos_a.distance(pos_b);
+                if distance < r_a + r_b {
+                    let overlap = (r_a + r_b) - distance;
+                    let dir = (pos_b - pos_a).normalize_or_zero();
+
+                    left[i].pos -= dir * (overlap / 2.0);
+                    right[0].pos += dir * (overlap / 2.0);
+                    std::mem::swap(&mut left[i].vel, &mut right[0].vel)
                 }
             }
         }
