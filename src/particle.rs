@@ -1,5 +1,7 @@
 use macroquad::prelude::*;
 
+const GRAVITY: f32 = 500.0;
+
 pub struct Particle {
     pub pos: Vec2,
     pub vel: Vec2,
@@ -32,8 +34,8 @@ impl Particle {
 
     /// Moves the particle: gravity, movement, bouncing off the edges.
     pub fn update(&mut self, dt: f32) {
-        self.pos.x += self.vel.x * dt;
-        self.pos.y += self.vel.y * dt;
+        self.vel.y += GRAVITY * dt;
+        self.pos += self.vel * dt;
     }
 
     /// Draws the particle as a circle.
