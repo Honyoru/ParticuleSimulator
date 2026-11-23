@@ -1,4 +1,5 @@
 use crate::particle::Particle;
+use macroquad::prelude::*;
 
 pub struct World {
     particles: Vec<Particle>,
@@ -7,16 +8,16 @@ pub struct World {
 impl World {
     /// Creates a world with `count` random particles.
     pub fn new(count: usize) -> Self {
-        todo!()
+        Self {
+            particles: Vec::new(),
+        }
     }
 
     /// Updates every particle (later: collisions too).
-    pub fn update(&mut self, dt: f32) {
-        todo!()
-    }
+    pub fn update(&mut self, dt: f32) {}
 
     /// Draws every particle.
     pub fn draw(&self) {
-        todo!()
+        draw_circle(screen_width() / 2.0, screen_height() / 2.0, 50.0, RED);
     }
 }
