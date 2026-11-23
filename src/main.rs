@@ -19,7 +19,7 @@ async fn main() {
     // Seed the random generator, otherwise you get the same "random" particles every run
     rand::srand(miniquad::date::now() as u64);
 
-    let mut world = World::new(500);
+    let mut world = World::new(200);
 
     loop {
         let dt = get_frame_time(); // seconds since the last frame

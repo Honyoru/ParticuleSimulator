@@ -20,6 +20,19 @@ impl World {
         for particle in &mut self.particles {
             particle.update(dt);
         }
+        let n = self.particles.len();
+        for i in 0..n {
+            for j in i + 1..n {
+                let pos_a = self.particles[i].pos;
+                let pos_b = self.particles[j].pos;
+                let r_a = self.particles[i].radius;
+                let r_b = self.particles[j].radius;
+                if pos_a.distance(pos_b) < r_a + r_b {
+                    self.particles[i].color = WHITE;
+                    self.particles[j].color = WHITE;
+                }
+            }
+        }
     }
 
     /// Draws every particle.
