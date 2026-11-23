@@ -8,9 +8,11 @@ pub struct World {
 impl World {
     /// Creates a world with `count` random particles.
     pub fn new(count: usize) -> Self {
-        Self {
-            particles: Vec::new(),
+        let mut particles = Vec::new();
+        for _ in 0..count {
+            particles.push(Particle::new());
         }
+        Self { particles }
     }
 
     /// Updates every particle (later: collisions too).
@@ -18,6 +20,8 @@ impl World {
 
     /// Draws every particle.
     pub fn draw(&self) {
-        
+        for particle in &self.particles {
+            particle.draw();
+        }
     }
 }

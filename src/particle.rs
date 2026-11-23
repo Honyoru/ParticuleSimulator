@@ -13,8 +13,13 @@ impl Particle {
         let radius = rand::gen_range(2.0, 30.0);
         let x = rand::gen_range(radius, screen_width() - radius);
         let y = rand::gen_range(radius, screen_height() - radius);
-        let color = Color::new(rand::gen_range(0.0, 1.0), rand::gen_range(0.0, 1.0), rand::gen_range(0.0, 1.0), 1.0);
-        Self{
+        let color = Color::new(
+            rand::gen_range(0.0, 1.0),
+            rand::gen_range(0.0, 1.0),
+            rand::gen_range(0.0, 1.0),
+            1.0,
+        );
+        Self {
             pos: Vec2::new(x, y),
             vel: Vec2::ZERO,
             radius,
