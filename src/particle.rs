@@ -2,6 +2,8 @@ use macroquad::prelude::*;
 
 const GRAVITY: f32 = 500.0;
 const DAMPING: f32 = 0.9;
+pub const MAX_RADIUS: f32 = 30.0;
+pub const MIN_RADIUS: f32 = 5.0;
 
 pub struct Particle {
     pub pos: Vec2,
@@ -13,7 +15,7 @@ pub struct Particle {
 impl Particle {
     /// Creates a particle with a random position, velocity, radius and color.
     pub fn new() -> Self {
-        let radius = rand::gen_range(2.0, 20.0);
+        let radius = rand::gen_range(MIN_RADIUS, MAX_RADIUS);
         let x = rand::gen_range(radius, screen_width() - radius);
         let y = rand::gen_range(radius, screen_height() - radius);
         let color = Color::new(

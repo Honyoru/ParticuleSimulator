@@ -1,5 +1,6 @@
 use macroquad::prelude::*;
 
+mod grid;
 mod particle;
 mod world;
 
@@ -10,7 +11,11 @@ fn window_conf() -> Conf {
         window_title: "Particule".to_owned(),
         window_width: 1280,
         window_height: 720,
-        ..Default::default()
+        platform: miniquad::conf::Platform {
+            swap_interval: Some(0), // 0 = VSync off
+            ..Default::default()
+        },
+        ..Default::default() // ← always LAST
     }
 }
 
