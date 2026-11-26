@@ -2,28 +2,38 @@ use macroquad::prelude::*;
 
 use crate::settings::*;
 
-pub const MAX_RADIUS: f32 = 30.0;
-pub const MIN_RADIUS: f32 = 5.0;
+pub const MAX_RADIUS: f32 = 4.0;
+pub const MIN_RADIUS: f32 = 2.0;
+/// One colour per particle type (particle life).
+pub const COLORS: [Color; 4] = [RED, GREEN, BLUE, YELLOW];
 
+/// A single particle: a disc that moves and bounces off the window edges.
 pub struct Particle {
     pub pos: Vec2,
     pub vel: Vec2,
     pub radius: f32,
     pub color: Color,
+    /// Type of the particle: index into `COLORS` and the rules table.
+    pub kind: usize,
 }
 
 impl Particle {
-    /// Creates a particle with a random position, velocity, radius and color.
+    /// Creates a particle with a random position, velocity, radius and type
+    /// (its colour comes from the type).
     pub fn new() -> Self {
+        let kind = rand::gen_range(0, COLORS.len());
         let radius = rand::gen_range(MIN_RADIUS, MAX_RADIUS);
         let x = rand::gen_range(radius, screen_width() - radius);
         let y = rand::gen_range(radius, screen_height() - radius);
+        let color = COLORS[kind];
+        /*
         let color = Color::new(
             rand::gen_range(0.0, 1.0),
             rand::gen_range(0.0, 1.0),
             rand::gen_range(0.0, 1.0),
             1.0,
         );
+        */
         Self {
             pos: Vec2::new(x, y),
             vel: Vec2::new(
@@ -32,6 +42,7 @@ impl Particle {
             ),
             radius,
             color,
+            kind,
         }
     }
 

@@ -1,5 +1,4 @@
 use macroquad::prelude::*;
-use macroquad::ui::root_ui;
 
 mod grid;
 mod particle;
@@ -13,6 +12,7 @@ fn window_conf() -> Conf {
         window_title: "Particule".to_owned(),
         window_width: 1280,
         window_height: 720,
+        fullscreen: true,
         ..Default::default()
     }
 }
@@ -21,12 +21,18 @@ fn window_conf() -> Conf {
 async fn main() {
     // Seed the random generator, otherwise you get the same "random" particles every run
     rand::srand(miniquad::date::now() as u64);
-
-    let mut world = World::new(100);
+    let mut fullscreen = true;
+    next_frame().await;
+    let mut world = World::new(5000);
     let mut show_settings = true;
     loop {
         let dt = get_frame_time(); // seconds since the last frame
 
+        // Fullscreen.
+        if is_key_pressed(KeyCode::F11) {
+            fullscreen = !fullscreen;
+            set_fullscreen(fullscreen);
+        }
         clear_background(BLACK);
 
         world.update(dt);
@@ -38,7 +44,7 @@ async fn main() {
         }
         if show_settings {
             show_settings = world.settings.draw_ui();
-        } else if root_ui().button(vec2(10.0, 40.0), "Settings") {
+        } else if settings::draw_reopen_button() {
             show_settings = true;
         }
 

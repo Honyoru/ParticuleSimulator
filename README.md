@@ -4,7 +4,7 @@ A real-time 2D particle simulation written in Rust, built as a project to learn 
 
 > 🚧 Work in progress
 
-![Latest demo: live settings panel](assets/demo-04-settings.gif)
+![Latest demo: particle life](assets/demo-05-particle-life.gif)
 
 ## Features
 
@@ -13,13 +13,23 @@ A real-time 2D particle simulation written in Rust, built as a project to learn 
 - [x] Particle-particle collisions (naive O(n²))
 - [x] Spatial grid to speed up collisions
 - [x] Mouse attract / repel
-- [ ] Inter-particle forces / boids
 - [x] Settings panel with sliders
+- [x] Mode menu: Classic / Particle life
+- [x] Particle life: colour types with random attraction rules
+- [ ] Continuous-colour particle life
+- [ ] Boids
 - [ ] Multithreading with rayon
 
 ## Progress
 
 Demos recorded along the way, newest first.
+
+### 05 · Particle life
+
+A second mode, picked from the settings panel. Each particle has one of 4 colours, and a random 4×4 table says how much each colour is attracted to or repelled by each other one.
+The rules are not symmetric, so cells, membranes and chasing chains appear on their own. "Randomize rules" creates a new universe; range, force and friction are live sliders.
+
+![Particle life](assets/demo-05-particle-life.gif)
 
 ### 04 · Live settings panel
 
@@ -62,6 +72,7 @@ cargo run --release
 | Left click (hold) | Attract particles inside the ring |
 | Right click (hold) | Repel particles inside the ring |
 | Tab | Show / hide the settings panel |
+| F11 | Toggle fullscreen |
 
 ## Built with
 

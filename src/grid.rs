@@ -10,8 +10,9 @@ use macroquad::prelude::*;
 
 pub struct Grid {
     /// Width and height of one cell, in pixels.
-    /// Must be >= the diameter of the biggest particle.
-    cell_size: f32,
+    /// Must be >= the interaction distance (particle diameter for collisions,
+    /// interaction radius for particle life), so the 3x3 search finds every neighbour.
+    pub cell_size: f32,
     /// Number of columns (cells along x).
     cols: usize,
     /// Number of rows (cells along y).
