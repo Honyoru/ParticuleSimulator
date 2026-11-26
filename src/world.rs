@@ -8,6 +8,8 @@ const MOUSE_STRENGTH: f32 = 2000.0;
 pub struct World {
     particles: Vec<Particle>,
     grid: Grid,
+    /// Mouse action this frame: 1.0 = attract, -1.0 = repel, 0.0 = none.
+    mouse_factor: f32,
 }
 
 impl World {
@@ -18,7 +20,11 @@ impl World {
         for _ in 0..count {
             particles.push(Particle::new());
         }
-        Self { particles, grid }
+        Self {
+            particles,
+            grid,
+            mouse_factor: 0.0,
+        }
     }
 
     /// Moves every particle, then resolves particle-particle collisions:
@@ -35,6 +41,8 @@ impl World {
         } else {
             0.0
         };
+        self.mouse_factor = factor;
+
         // Update the particles.
         for particle in &mut self.particles {
             particle.update(dt);
@@ -87,6 +95,14 @@ impl World {
 
         // Draw the mouse circle.
         let (x, y) = mouse_position();
-        draw_circle_lines(x, y, MOUSE_RADIUS, 3.0, Color::new(1.0, 1.0, 1.0, 0.3));
+        let color = if self.mouse_factor > 0.0 {
+            Color::new(0.2, 0.3, 1.0, 0.6) // attract: blue
+        } else if self.mouse_factor < 0.0 {
+            Color::new(1.0, 0.3, 0.2, 0.6) // repel: red
+        } else {
+            Color::new(1.0, 1.0, 1.0, 0.3) // idle: white
+        };
+        let thickness = if self.mouse_factor != 0.0 { 4.0 } else { 3.0 };
+        draw_circle_lines(x, y, MOUSE_RADIUS, thickness, color);
     }
 }
