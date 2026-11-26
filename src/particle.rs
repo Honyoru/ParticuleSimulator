@@ -1,7 +1,7 @@
 use macroquad::prelude::*;
 
-const GRAVITY: f32 = 500.0;
-const DAMPING: f32 = 0.9;
+use crate::settings::*;
+
 pub const MAX_RADIUS: f32 = 30.0;
 pub const MIN_RADIUS: f32 = 5.0;
 
@@ -36,22 +36,22 @@ impl Particle {
     }
 
     /// Moves the particle: gravity, movement, bouncing off the edges.
-    pub fn update(&mut self, dt: f32) {
-        self.vel.y += GRAVITY * dt;
+    pub fn update(&mut self, dt: f32, settings: &Settings) {
+        self.vel.y += settings.gravity * dt;
         self.pos += self.vel * dt;
         if self.pos.x + self.radius > screen_width() {
             self.pos.x = screen_width() - self.radius;
-            self.vel.x = -self.vel.x.abs() * DAMPING;
+            self.vel.x = -self.vel.x.abs() * settings.damping;
         } else if self.pos.x - self.radius < 0.0 {
             self.pos.x = self.radius;
-            self.vel.x = self.vel.x.abs() * DAMPING;
+            self.vel.x = self.vel.x.abs() * settings.damping;
         }
         if self.pos.y + self.radius > screen_height() {
             self.pos.y = screen_height() - self.radius;
-            self.vel.y = -self.vel.y.abs() * DAMPING;
+            self.vel.y = -self.vel.y.abs() * settings.damping;
         } else if self.pos.y - self.radius < 0.0 {
             self.pos.y = self.radius;
-            self.vel.y = self.vel.y.abs() * DAMPING;
+            self.vel.y = self.vel.y.abs() * settings.damping;
         }
     }
 

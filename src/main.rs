@@ -2,6 +2,7 @@ use macroquad::prelude::*;
 
 mod grid;
 mod particle;
+mod settings;
 mod world;
 
 use world::World;

@@ -1,15 +1,13 @@
 use crate::grid::*;
 use crate::particle::*;
+use crate::settings::*;
 use macroquad::prelude::*;
-
-const MOUSE_RADIUS: f32 = 100.0;
-const MOUSE_STRENGTH: f32 = 2000.0;
 
 pub struct World {
     particles: Vec<Particle>,
     grid: Grid,
-    /// Mouse action this frame: 1.0 = attract, -1.0 = repel, 0.0 = none.
     mouse_factor: f32,
+    settings: Settings,
 }
 
 impl World {
@@ -24,6 +22,7 @@ impl World {
             particles,
             grid,
             mouse_factor: 0.0,
+            settings: Settings::default(),
         }
     }
 
@@ -45,7 +44,7 @@ impl World {
 
         // Update the particles.
         for particle in &mut self.particles {
-            particle.update(dt);
+            particle.update(dt, &self.settings);
         }
 
         // Update the grid.
@@ -59,9 +58,9 @@ impl World {
         for i in 0..n {
             let p = &mut self.particles[i];
             let neighbours = self.grid.neighbours(p.pos);
-            if factor != 0.0 && p.pos.distance(mouse) < MOUSE_RADIUS {
+            if factor != 0.0 && p.pos.distance(mouse) < self.settings.mouse_radius {
                 let dir = (mouse - p.pos).normalize_or_zero();
-                self.particles[i].vel += dir * factor * MOUSE_STRENGTH * dt
+                self.particles[i].vel += dir * factor * self.settings.mouse_strength * dt
             }
 
             // Collision.
@@ -103,6 +102,6 @@ impl World {
             Color::new(1.0, 1.0, 1.0, 0.3) // idle: white
         };
         let thickness = if self.mouse_factor != 0.0 { 4.0 } else { 3.0 };
-        draw_circle_lines(x, y, MOUSE_RADIUS, thickness, color);
+        draw_circle_lines(x, y, self.settings.mouse_radius, thickness, color);
     }
 }
