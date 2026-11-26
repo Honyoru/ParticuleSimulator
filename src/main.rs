@@ -1,4 +1,5 @@
 use macroquad::prelude::*;
+use macroquad::ui::root_ui;
 
 mod grid;
 mod particle;
@@ -22,7 +23,7 @@ async fn main() {
     rand::srand(miniquad::date::now() as u64);
 
     let mut world = World::new(100);
-    show_mouse(false);
+    let mut show_settings = true;
     loop {
         let dt = get_frame_time(); // seconds since the last frame
 
@@ -30,6 +31,16 @@ async fn main() {
 
         world.update(dt);
         world.draw();
+
+        // Settings panel: Tab toggles it, × closes it, the button reopens it.
+        if is_key_pressed(KeyCode::Tab) {
+            show_settings = !show_settings;
+        }
+        if show_settings {
+            show_settings = world.settings.draw_ui();
+        } else if root_ui().button(vec2(10.0, 40.0), "Settings") {
+            show_settings = true;
+        }
 
         draw_text(&format!("FPS: {}", get_fps()), 10.0, 24.0, 28.0, WHITE);
 

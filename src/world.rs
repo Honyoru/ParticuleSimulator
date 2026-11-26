@@ -7,7 +7,7 @@ pub struct World {
     particles: Vec<Particle>,
     grid: Grid,
     mouse_factor: f32,
-    settings: Settings,
+    pub settings: Settings,
 }
 
 impl World {

@@ -4,7 +4,7 @@ A real-time 2D particle simulation written in Rust, built as a project to learn 
 
 > 🚧 Work in progress
 
-![Latest demo: mouse attract and repel](assets/demo-03-mouse.gif)
+![Latest demo: live settings panel](assets/demo-04-settings.gif)
 
 ## Features
 
@@ -14,12 +14,19 @@ A real-time 2D particle simulation written in Rust, built as a project to learn 
 - [x] Spatial grid to speed up collisions
 - [x] Mouse attract / repel
 - [ ] Inter-particle forces / boids
-- [ ] Settings panel with sliders (egui)
+- [x] Settings panel with sliders
 - [ ] Multithreading with rayon
 
 ## Progress
 
 Demos recorded along the way, newest first.
+
+### 04 · Live settings panel
+
+A settings window with sliders changes gravity, bounce damping, mouse radius and mouse strength while the simulation runs.
+Negative gravity makes everything fall up.
+
+![Live settings panel](assets/demo-04-settings.gif)
 
 ### 03 · Mouse attract and repel
 
@@ -54,6 +61,7 @@ cargo run --release
 |---|---|
 | Left click (hold) | Attract particles inside the ring |
 | Right click (hold) | Repel particles inside the ring |
+| Tab | Show / hide the settings panel |
 
 ## Built with
 
